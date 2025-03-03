@@ -1,4 +1,4 @@
-function promiseAll(promises: Promise<any>[]):Promise<any[]> {
+function promiseAll(promises: Promise<any>[]): Promise<any[]> {
   return new Promise((res, rej) => {
     if (!Array.isArray(promises)) {
       return rej(new TypeError('Promises must be an array'))
@@ -12,17 +12,17 @@ function promiseAll(promises: Promise<any>[]):Promise<any[]> {
     promises.forEach((promise, index) => {
       //оборачиваем promise в промис на случай если это не промис
       Promise.resolve(promise)
-      .then(result => {
-        results[index] = result;
-        count++;
+        .then(result => {
+          results[index] = result;
+          count++;
 
-        if (count === promises.length) {
-          return res(results)
-        }
-      })
-      .catch(err => {
-        return rej(err)
-      })
+          if (count === promises.length) {
+            return res(results)
+          }
+        })
+        .catch(err => {
+          return rej(err)
+        })
     })
   })
 }
